@@ -1,0 +1,142 @@
+// ~->[DNET-1]->~
+
+// File created by GmytrasiewiczP_2 at UIC using Netica 5.24 on Mar 31, 2018 at 20:16:46 UTC.
+
+bnet Untitled_0 {
+autoupdate = TRUE;
+whenchanged = 1522527406;
+
+visual V1 {
+	defdispform = BELIEFBARS;
+	nodelabeling = TITLE;
+	NodeMaxNumEntries = 50;
+	nodefont = font {shape= "Arial"; size= 9;};
+	linkfont = font {shape= "Arial"; size= 9;};
+	resolution = 72;
+	drawingbounds = (1080, 720);
+	showpagebreaks = FALSE;
+	usegrid = TRUE;
+	gridspace = (6, 6);
+	NodeSet Node {BuiltIn = 1; Color = 0x00e1e1e1;};
+	NodeSet Nature {BuiltIn = 1; Color = 0x00f8eed2;};
+	NodeSet Deterministic {BuiltIn = 1; Color = 0x00d3caa6;};
+	NodeSet Finding {BuiltIn = 1; Color = 0x00c8c8c8;};
+	NodeSet Constant {BuiltIn = 1; Color = 0x00ffffff;};
+	NodeSet ConstantValue {BuiltIn = 1; Color = 0x00ffffb4;};
+	NodeSet Utility {BuiltIn = 1; Color = 0x00ffbdbd;};
+	NodeSet Decision {BuiltIn = 1; Color = 0x00dee8ff;};
+	NodeSet Documentation {BuiltIn = 1; Color = 0x00f0fafa;};
+	NodeSet Title {BuiltIn = 1; Color = 0x00ffffff;};
+	PrinterSetting A {
+		margins = (1270, 1270, 1270, 1270);
+		};
+	};
+
+node C {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	numstates = 1;
+	parents = ();
+	whochanged = "whisk";
+	whenchanged = 1522527133;
+	visual V1 {
+		center = (588, 42);
+		height = 6;
+		};
+	};
+
+node B {
+	kind = NATURE;
+	discrete = TRUE;
+	states = (yes, no);
+	parents = (C);
+	whenchanged = 1522527140;
+	visual V1 {
+		center = (342, 60);
+		height = 1;
+		link 1 {
+			path = ((512, 48), (411, 56));
+			};
+		};
+	};
+
+node E {
+	kind = DECISION;
+	discrete = TRUE;
+	chance = DETERMIN;
+	numstates = 1;
+	parents = (B);
+	functable = 
+		                    // B   
+		  (#0,              // yes 
+		   #0);             // no  ;
+	whenchanged = 1522527126;
+	visual V1 {
+		center = (474, 144);
+		height = 5;
+		link 1 {
+			path = ((382, 87), (444, 125));
+			};
+		};
+	};
+
+node V {
+	kind = UTILITY;
+	discrete = FALSE;
+	measure = RATIO;
+	chance = DETERMIN;
+	parents = (C, E);
+	whenchanged = 1522527159;
+	visual V1 {
+		center = (642, 204);
+		height = 7;
+		link 2 {
+			path = ((526, 164), (623, 198));
+			};
+		};
+	};
+
+node A {
+	kind = NATURE;
+	discrete = TRUE;
+	states = (yes, no);
+	parents = (B);
+	whenchanged = 1522526532;
+	visual V1 {
+		center = (150, 60);
+		height = 2;
+		};
+	};
+
+node D {
+	kind = DECISION;
+	discrete = TRUE;
+	chance = DETERMIN;
+	states = (yes, no);
+	parents = (A);
+	functable = 
+		                    // A   
+		  (yes,             // yes 
+		   yes);            // no  ;
+	whenchanged = 1522526542;
+	visual V1 {
+		center = (162, 162);
+		height = 3;
+		};
+	};
+
+node U {
+	kind = UTILITY;
+	discrete = FALSE;
+	measure = RATIO;
+	chance = DETERMIN;
+	parents = (D, B);
+	whenchanged = 1522526553;
+	visual V1 {
+		center = (336, 162);
+		height = 4;
+		};
+	};
+ElimOrder = (C, E, B, D, A);
+};
